@@ -1,5 +1,8 @@
-#include <iostream>
-#include <cstring>
+#ifndef PRODUCTERSTREAM_HPP_
+# define PRODUCTERSTREAM_HPP_
+
+# include <iostream>
+# include <cstring>
 
 class ProducterStream
 {
@@ -14,3 +17,5 @@ public:
 private:
     std::istream *istream;
 };
+
+#endif /* PRODUCTERSTREAM_HPP_ */
