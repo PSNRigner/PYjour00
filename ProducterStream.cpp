@@ -11,6 +11,8 @@ ProducterStream::~ProducterStream()
 {
     if (this->istream != NULL && this->istream != &std::cin)
         ((std::ifstream *)this->istream)->close();
+    if (this->istream != NULL)
+        delete(this->istream);
 }
 
 bool ProducterStream::loadFile(char *path)
@@ -44,9 +46,11 @@ std::string ProducterStream::nextString()
 {
     if (this->istream == NULL || !(*this->istream))
         throw std::logic_error("Stream not opened");
-    std::string line;
-    std::getline(*this->istream, line);
     if (!*this->istream)
         throw std::logic_error("Empty stream");
+    std::string line;
+    std::getline(*this->istream, line);
+    if (this->istream)
+        line += "\n";
     return line;
 }
