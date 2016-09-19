@@ -1,3 +1,7 @@
+//
+// Created by frasse_l on 19/09/16.
+//
+
 #ifndef PRODUCTERSTREAM_HPP_
 # define PRODUCTERSTREAM_HPP_
 

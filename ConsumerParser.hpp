@@ -16,7 +16,7 @@ class ConsumerParser
 {
 public:
     ConsumerParser(ProducterStream &);
-    ~ConsumerParser();
+    virtual ~ConsumerParser();
     inline bool flush()
     {
         size_t n = this->buffers.size();
@@ -64,6 +64,18 @@ public:
 
     inline bool beginCapture(std::string tag)
     {
+        std::map<std::string, size_t *>::iterator it = this->captures.begin();
+        std::map<std::string, size_t *>::iterator it_end = this->captures.end();
+        while (it != it_end)
+        {
+            if (it->first == tag)
+            {
+                delete(it->second);
+                this->captures.erase(it);
+            }
+            it++;
+        }
+
         size_t *tab = new size_t[2];
         tab[0] = this->bufferIndex[0];
         tab[1] = this->bufferIndex[1];
@@ -87,6 +99,8 @@ public:
                         for (size_t j = i == it->second[0] ? it->second[1] : 0; j < this->buffers[i]->length(); j++)
                             out += this->buffers[i]->at(j);
 
+                delete(it->second);
+                this->captures.erase(it);
                 return true;
             }
             it++;
