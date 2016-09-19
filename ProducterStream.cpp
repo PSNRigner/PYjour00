@@ -10,9 +10,10 @@ ProducterStream::ProducterStream()
 ProducterStream::~ProducterStream()
 {
     if (this->istream != NULL && this->istream != &std::cin)
+    {
         ((std::ifstream *)this->istream)->close();
-    if (this->istream != NULL)
         delete(this->istream);
+    }
 }
 
 bool ProducterStream::loadFile(char *path)
@@ -44,13 +45,21 @@ bool ProducterStream::loadStdin()
 
 std::string ProducterStream::nextString()
 {
+    this->mutex.lock();
     if (this->istream == NULL || !(*this->istream))
+    {
+        this->mutex.unlock();
         throw std::logic_error("Stream not opened");
+    }
     if (!*this->istream)
+    {
+        this->mutex.unlock();
         throw std::logic_error("Empty stream");
+    }
     std::string line;
     std::getline(*this->istream, line);
     if (this->istream)
         line += "\n";
+    this->mutex.unlock();
     return line;
 }

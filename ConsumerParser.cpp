@@ -2,6 +2,7 @@
 // Created by frasse_l on 19/09/16.
 //
 
+#include <cstring>
 #include "ConsumerParser.hpp"
 
 ConsumerParser::ConsumerParser(ProducterStream &producterStream) : producterStream(producterStream)

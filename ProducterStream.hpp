@@ -7,6 +7,7 @@
 
 # include <iostream>
 # include <cstring>
+# include <mutex>
 
 class ProducterStream
 {
@@ -20,6 +21,7 @@ public:
 
 private:
     std::istream *istream;
+    std::mutex mutex;
 };
 
 #endif /* PRODUCTERSTREAM_HPP_ */
